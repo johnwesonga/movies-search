@@ -41,7 +41,7 @@
       (fn []
         (let [query @search-param]
           [:div {:class "container"}
-          [:h1 {:class "title" "Re-frame Movie Search"}]
+          [:h1 {:class "title"} "Re-frame Movie Search"]
           [:form {:class "form" :on-submit #(search-movies % @search-param)}
             [:label {:class "label"} "Movie Name"]
             [:input {:class "input" 
