@@ -16,3 +16,9 @@
  ::query
  (fn [db]
    (:query db)))
+
+
+(re-frame/reg-sub
+ ::error-message
+ (fn [db]
+   (:error-message db)))

@@ -36,10 +36,10 @@
 
 (defn search-movies-form 
   []
-    (let [default {:query ""}
+    (let [default ""
           search-param (reagent/atom default)]
       (fn []
-        (let [query (get @search-param :query)]
+        (let [query @search-param]
           [:div.container
           [:h1.title "Re-frame Movie Search"]
           [:form {:class "form" :on-submit #(search-movies % @search-param)}
@@ -48,7 +48,7 @@
                     :type :text 
                     :name "query" 
                     :value query
-                    :on-change #(swap! search-param assoc :query (-> % .-target .-value))
+                    :on-change #(reset! search-param  (-> % .-target .-value))
                     :placeholder "i.e. Jurassic Park"}]
             [:button {:class "button" 
                     :type :submit 
@@ -59,7 +59,6 @@
         movies (subscribe [::subs/movies])
         query (subscribe [::subs/query])]
     [:div
-      [:pre (pr-str @movies)]
       [search-movies-form]
       (if-not (empty? @query)
         [movies-list @movies])

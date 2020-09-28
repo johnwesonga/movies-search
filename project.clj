@@ -8,6 +8,7 @@
                  [reagent "0.10.0"]
                  [re-frame "1.1.1"]
                  [day8.re-frame/http-fx "0.2.1"]
+                 [day8.re-frame/tracing "0.6.0"]
 ]
 
   :plugins [[lein-shadow "0.2.2"]
@@ -27,7 +28,11 @@
                                :output-dir "resources/public/js/compiled"
                                :asset-path "/js/compiled"
                                :modules {:app {:init-fn movie-search.core/init
-                                               :preloads [devtools.preload]}}
+                                               :preloads [devtools.preload 
+                                                          day8.re-frame-10x.preload]}}
+                               :dev {:compiler-options {:closure-defines {re-frame.trace.trace-enabled? true
+                                                                          day8.re-frame.tracing.trace-enabled? true}}}
+
 
                                :devtools {:http-root "resources/public"
                                           :http-port 8280
@@ -65,7 +70,8 @@
 
   :profiles
   {:dev
-   {:dependencies [[binaryage/devtools "1.0.2"]]
+   {:dependencies [[binaryage/devtools "1.0.2"]
+                   [day8.re-frame/re-frame-10x "0.7.0"]]
     :source-paths ["dev"]}
 
    :prod {}
