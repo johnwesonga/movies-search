@@ -7,10 +7,10 @@
    ))
 
 (defn search-movies 
-[event search-param]
-  (.preventDefault event)
- (dispatch [:search-movies search-param])
-)
+  [event search-param]
+    (.preventDefault event)
+    (dispatch [:search-movies search-param]))
+
 (defn movie-item
  [{:keys [title poster_path release_date vote_average overview]}]
   [:div.card
@@ -30,7 +30,7 @@
 [:div
   (if (empty? results)
    [:div.card-list
-     [:p "No movie"]]
+     [:p "No movie found"]]
     (for [movie results]
       ^{:key (:poster_path movie)} [movie-item movie]))])
 
@@ -40,8 +40,8 @@
           search-param (reagent/atom default)]
       (fn []
         (let [query @search-param]
-          [:div.container
-          [:h1.title "Re-frame Movie Search"]
+          [:div {:class "container"}
+          [:h1 {:class "title" "Re-frame Movie Search"}]
           [:form {:class "form" :on-submit #(search-movies % @search-param)}
             [:label {:class "label"} "Movie Name"]
             [:input {:class "input" 
