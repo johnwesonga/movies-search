@@ -42,7 +42,7 @@
         (let [query @search-param]
           [:div {:class "container"}
           [:h1 {:class "title"} "Re-frame Movie Search"]
-          [:form {:class "form" :on-submit #(search-movies % @search-param)}
+          [:form {:class "form" :on-submit #(search-movies % query)}
             [:label {:class "label"} "Movie Name"]
             [:input {:class "input" 
                     :type :text 
@@ -55,8 +55,7 @@
                     } "Search"]]]))))
 
 (defn main-panel []
-  (let [name (subscribe [::subs/name])
-        movies (subscribe [::subs/movies])
+  (let [movies (subscribe [::subs/movies])
         query (subscribe [::subs/query])]
     [:div
       [search-movies-form]

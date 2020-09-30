@@ -28,6 +28,7 @@
       (assoc :movies (->> data
                          :results
                          (filter #(if-not nil (get-in % [:poster_path])))))
+      (assoc :error-message nil)
       )))
 
 (re-frame/reg-event-fx
