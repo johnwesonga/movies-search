@@ -2,9 +2,8 @@
   (:require
    [re-frame.core :as re-frame]
    [movie-search.db :as db]
-    [day8.re-frame.http-fx]
+   [day8.re-frame.http-fx]
    [ajax.core :as ajax]
-
    ))
 
 (def api-url "")
@@ -16,9 +15,9 @@
 
 (re-frame/reg-event-db
   :error-message
-  (fn [db [_ result]]
+  (fn [db [_ error]]
     (-> db 
-      (assoc :error-message result)
+      (assoc :error-message error)
       )))
 
 (re-frame/reg-event-db
@@ -28,7 +27,7 @@
       (assoc :movies (->> data
                          :results
                          (filter #(if-not nil (get-in % [:poster_path])))))
-      (assoc :error-message nil)
+      (assoc :error-message "Search Results")
       )))
 
 (re-frame/reg-event-fx
@@ -41,3 +40,15 @@
                   :on-success      [:success-http-result]
                   :on-failure      [:error-message "Failed to load movies"]}
   :db (assoc db :query search-param)}))
+
+
+(re-frame/reg-event-db
+  :set-active-panel
+  (fn [db [_ active-panel]]
+    (assoc db :active-panel active-panel)))
+
+
+(re-frame/reg-event-db
+  :set-route
+  (fn [db [_ route]]
+    (assoc db :route route)))

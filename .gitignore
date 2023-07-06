@@ -3,6 +3,9 @@
 /target/
 /*-init.clj
 /*.log
+/*.iml
+/*.lein-repl-history
+/*.idea
 
 # Leiningen
 /.lein-*

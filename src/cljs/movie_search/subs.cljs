@@ -17,3 +17,24 @@
  ::error-message
  (fn [db]
    (:error-message db)))
+
+(re-frame/reg-sub
+  ::active-panel
+  (fn [db]
+    (get-in db [:route :panel])))
+
+(re-frame/reg-sub
+  ::route-params
+  (fn [db]
+    (get-in db [:route :route :route-params])))
+
+(re-frame/reg-sub
+  ::movie-id
+  (fn [db]
+    (:movie-id db)))
+
+(re-frame/reg-sub
+  ::movie
+  (fn [db [_ movie-id]]
+    (first (filter #(= (int movie-id) (:id %)) (:movies db)))))
+
